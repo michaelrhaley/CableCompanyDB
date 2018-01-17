@@ -1,0 +1,784 @@
+SQL> @ v:\cis336\final_team_e_task2.txt
+SQL> set pagesize 50
+SQL> set linesize 150
+SQL> 
+SQL> 
+SQL> DROP TABLE CUSTOMER CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE BILL CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE SURVEY CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE PROGRAMPACKAGE CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE CHANNELS CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE GUIDE CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE PROGRAMS CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE PACKAGECHANNELS CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE SUPPLIERS CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> DROP TABLE EMPLOYEE CASCADE CONSTRAINTS PURGE;
+
+Table dropped.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> Create table Channels
+  2  (ChannelID NUMBER(5) CONSTRAINT Channel_ChannelID_PK PRIMARY KEY,
+  3  ShortDescription VARCHAR2(50),
+  4  ChannelType VARCHAR2(12));
+
+Table created.
+
+SQL> 
+SQL> insert into channels
+  2  values(1, 'BOX OFFICE', 'MOVIE');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(2, 'BIG SCREEN', 'MOVIE');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(3, 'CH3 NEWS', 'NEWS');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(4, 'CH4 NEWS', 'NEWS');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(5, 'LIFE', 'LIFESTYLE');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(6, 'FOOD', 'LIFESTYLE');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(7, 'HISTORY', 'DOCUMENTARY');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(8, 'DOC TV', 'DOCUMENTARY');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(9, 'ALL SPORTS', 'SPORTS');
+
+1 row created.
+
+SQL> insert into channels
+  2  values(10, 'THE GAME', 'SPORTS');
+
+1 row created.
+
+SQL> 
+SQL> Create table Suppliers
+  2  (SupplierID NUMBER(5) CONSTRAINT Suppliers_SID_PK PRIMARY KEY,
+  3  SupName VARCHAR2(25),
+  4  SupAddress VARCHAR2(50),
+  5  ContPerson VARCHAR2(25),
+  6  ContPhone NUMBER(10),
+  7  ReportID NUMBER(3));
+
+Table created.
+
+SQL> 
+SQL> insert into suppliers
+  2  values(1002, 'NBC', '10880 Wilshire Blvd #1200 Los Angeles, CA', 'Jeff King', 3103695231, 1);
+
+1 row created.
+
+SQL> insert into suppliers
+  2  values(1003, 'ABC', 'Los Angeles, CA', 'Jack Caverisi', 3108409966, 2);
+
+1 row created.
+
+SQL> insert into suppliers
+  2  values(1005, 'FOX', '10960 Wilshire Blvd #1200 Los Angeles, CA', 'Janis Carmikel', 3102355233, 3);
+
+1 row created.
+
+SQL> insert into suppliers
+  2  values(1006, 'WARNER', '3701 W Oak St. Los Angeles, CA', 'Simon Philips', 3105326588, 4);
+
+1 row created.
+
+SQL> 
+SQL> Create table ProgramPackage
+  2  (ProgramPackageID NUMBER(5) CONSTRAINT ProgramPackage_PPID_PK PRIMARY KEY,
+  3  ProgramPackageName VARCHAR2(25),
+  4  Cost NUMBER(5,2));
+
+Table created.
+
+SQL> 
+SQL> insert into programpackage
+  2  values('500', 'Movies Galore', 30.00);
+
+1 row created.
+
+SQL> insert into programpackage
+  2  values('400', 'News Globe', 30.00);
+
+1 row created.
+
+SQL> insert into programpackage
+  2  values('300', 'Total Watcher', 40.00);
+
+1 row created.
+
+SQL> insert into programpackage
+  2  values('200', 'Couch Potato', 50.00);
+
+1 row created.
+
+SQL> 
+SQL> Create table PackageChannels
+  2  (ChannelID NUMBER(5) not null,
+  3  ProgramPackageID NUMBER(5)not null,
+  4  CONSTRAINT PK_ChannelID PRIMARY KEY(ChannelID, ProgramPackageID));
+
+Table created.
+
+SQL> 
+SQL> Insert into packagechannels
+  2  values(1, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(1, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(1, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(1, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(2, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(2, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(2, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(3, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(3, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(3, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(3, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(4, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(4, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(5, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(6, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(6, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(6, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(6, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(7, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(7, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(7, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(7, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(8, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(8, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(9, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(9, 300);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(9, 400);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(9, 500);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(10, 200);
+
+1 row created.
+
+SQL> Insert into packagechannels
+  2  values(10, 300);
+
+1 row created.
+
+SQL> 
+SQL> Create table Employee
+  2  (EmployeeID NUMBER(3) CONSTRAINT Employee_EID_PK PRIMARY KEY,
+  3  EmployeeName VARCHAR2(25));
+
+Table created.
+
+SQL> 
+SQL> insert into employee
+  2  values(11, 'Eli Manning');
+
+1 row created.
+
+SQL> insert into employee
+  2  values(68, 'Jamir Jagr');
+
+1 row created.
+
+SQL> insert into employee
+  2  values(88, 'Eric Lindros');
+
+1 row created.
+
+SQL> insert into employee
+  2  values(23, 'Michael Jordan');
+
+1 row created.
+
+SQL> 
+SQL> Create table Programs
+  2  (ProgramID NUMBER(5) CONSTRAINT Programs_PID_PK PRIMARY KEY,
+  3  ProgramName VARCHAR2(25),
+  4  Length NUMBER(6),
+  5  Description VARCHAR2(100),
+  6  Rating VARCHAR2(5),
+  7  SupplierID NUMBER(5) CONSTRAINT Suppliers_SupID_FK REFERENCES Suppliers(SupplierID));
+
+Table created.
+
+SQL> 
+SQL> insert into programs
+  2  values(10100, 'Sale of the Year', 24, 'Game Show', 'G', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10101, 'Opera by the Nile', 240, 'Luciano Pavorotti sings opera on the Nile', 'G', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10102, 'Fly Killers are Back', 175, 'Flies attack the city once again; the Bygone Brigade are back', 'MA', 1005);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10103, 'NBC Tonight', 360, 'News from around the world', 'PG', 1002);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10104, 'The Cooking Show', 120, 'The recipes of a lifetime', 'G', 1003);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10105, 'Angel Fire', 120, 'Angel is back on the streets', 'R', 1005);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10106, 'Lawn Bowl Championships', 400, 'Live from Canberra', 'G', 1002);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10107, 'Mud Wrestling', 120, 'The mud pits come alive for the muddy challenge', 'MA', 1002);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10108, 'Cafe News Show', 360, 'Jump start your day the right way!', 'PG', 1003);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10109, 'War Crimes', 60, 'Being a P.O.W. in WW2', 'PG', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10110, 'DIY Home Edition', 30, 'Stan shows you how to "Do It Yourself"', 'G', 1002);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10111, 'Starry Wars the Trilogy', 120, 'Science Fiction epic about the generation of a brave new world', 'MA', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10112, 'Gomer Piles the Hero', 80, 'Comedy showing the advantages of being an army sergeant', 'PG', 1003);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10113, 'Twinkle Toes in Paris', 90, 'Romantic Drama about a Scottish Ballet Dancer making his fortune', 'MA', 1005);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10114, 'Segall in New York', 110, 'Action about a terrorist attack on a New York cemetery', 'R', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10115, 'Fantasia', 118, 'Disney Favorite', 'G', 1002);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10116, 'Dances with Fairies', 96, 'New age movie showing the interscation of humans in the afterlife', 'PG', 1003);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10117, 'Speed 6: The Last', 105, 'The ship is taken over by hostile aliens; Minnie Driver fights back before the ship explodes', 'R', 1006);
+
+1 row created.
+
+SQL> insert into programs
+  2  values(10118, 'Pretty Women', 83, 'The long awaited sequel to the american classic film', 'R', 1005);
+
+1 row created.
+
+SQL> 
+SQL> Create table Guide
+  2  (GuideID NUMBER(5) CONSTRAINT Guide_GuideID_PK PRIMARY KEY,
+  3  ChannelID NUMBER(2) CONSTRAINT Channel_CHID_FK REFERENCES Channels(ChannelID),
+  4  ShowTime DATE,
+  5  ShowDate DATE,
+  6  ProgramID NUMBER(5) CONSTRAINT Program_PID_FK REFERENCES Programs(ProgramID));
+
+Table created.
+
+SQL> 
+SQL> insert into guide
+  2  values(1, 1, to_date('01:00', 'HH24:MI'), sysdate, 10102);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(2, 1, to_date('01:00', 'HH24:MI'), sysdate, 10102);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(3, 1, to_date('01:00', 'HH24:MI'), sysdate, 10102);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(4, 1, to_date('01:00', 'HH24:MI'), sysdate, 10102);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(5, 2, to_date('03:40', 'HH24:MI'), sysdate, 10105);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(6, 2, to_date('03:40', 'HH24:MI'), sysdate, 10105);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(7, 2, to_date('03:40', 'HH24:MI'), sysdate, 10105);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(8, 3, to_date('05:30', 'HH24:MI'), sysdate, 10103);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(9, 3, to_date('05:30', 'HH24:MI'), sysdate, 10103);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(10, 3, to_date('05:30', 'HH24:MI'), sysdate, 10103);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(11, 3, to_date('05:30', 'HH24:MI'), sysdate, 10103);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(12, 4, to_date('16:30', 'HH24:MI'), sysdate, 10108);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(13, 4, to_date('16:30', 'HH24:MI'), sysdate, 10108);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(14, 5, to_date('19:00', 'HH24:MI'), sysdate, 10110);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(15, 6, to_date('12:30', 'HH24:MI'), sysdate, 10104);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(16, 6, to_date('12:30', 'HH24:MI'), sysdate, 10104);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(30, 6, to_date('12:30', 'HH24:MI'), sysdate, 10104);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(17, 6, to_date('12:30', 'HH24:MI'), sysdate, 10104);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(18, 7, to_date('09:00', 'HH24:MI'), sysdate, 10109);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(19, 7, to_date('09:00', 'HH24:MI'), sysdate, 10109);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(20, 7, to_date('09:00', 'HH24:MI'), sysdate, 10109);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(21, 7, to_date('09:00', 'HH24:MI'), sysdate, 10109);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(22, 8, to_date('17:00', 'HH24:MI'), sysdate, 10101);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(23, 8, to_date('17:00', 'HH24:MI'), sysdate, 10101);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(24, 9, to_date('14:00', 'HH24:MI'), sysdate, 10106);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(25, 9, to_date('14:00', 'HH24:MI'), sysdate, 10106);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(26, 9, to_date('14:00', 'HH24:MI'), sysdate, 10106);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(27, 9, to_date('14:00', 'HH24:MI'), sysdate, 10106);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(28, 10, to_date('21:00', 'HH24:MI'), sysdate, 10107);
+
+1 row created.
+
+SQL> insert into guide
+  2  values(29, 10, to_date('21:00', 'HH24:MI'), sysdate, 10107);
+
+1 row created.
+
+SQL> 
+SQL> --select showtime from guide:
+SQL> --select to_char(ShowTime, 'HH:MI') from Guide;
+SQL> 
+SQL> Create table Customer
+  2  (CustId NUMBER(5) CONSTRAINT Customer_CustId_PK PRIMARY KEY,
+  3  CustName VARCHAR2(25),
+  4  CustStreet VARCHAR2(30),
+  5  CustCity VARCHAR2(30),
+  6  CustState CHAR(2),
+  7  CustZip NUMBER(9),
+  8  CustPhone NUMBER(10),
+  9  CustEmail VARCHAR2(30),
+ 10  CustStatus VARCHAR2(8) CHECK(CustStatus IN('Active', 'Inactive')),
+ 11  ProgramPackageID NUMBER(5) CONSTRAINT ProgramPackage_PPID_FK REFERENCES ProgramPackage(ProgramPackageID),
+ 12  EmployeeID NUMBER(3) CONSTRAINT Employee_EmpID_FK REFERENCES Employee(EmployeeID));
+
+Table created.
+
+SQL> 
+SQL> insert into customer
+  2  values(101, 'Harborough', '1234 Venice Bl.', 'Los Angeles', 'CA', 90066, 3105889887, 'mememe@myself.com', 'Active', 500, 23);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(202, 'Scittler', '5678 Dying Rd.', 'On a Laptop', 'CA', 90056, 3104447777, 'omgomg@lol.com', 'Active', 300, 88);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(303, 'Slowwwwwww', '9999 Again St.', 'Tired Town', 'CA', 90099, 3101111111, 'roughday@onlyme.com', 'Active', 200, 68);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(404, 'Mr. Mask', '888 Infinite St.', 'Universe', 'CA', 98888, 3108888888, 'spaceballs11@galaxy900.com', 'Active', 400, 11);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(505, 'Galant', '456 Mitsuwa Rd.', 'Mitstitch', 'CA', 91001, 8185652331, '4doorsedan@mitsubishi.com', 'Active', 400, 23);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(606, 'Block', '6269 Chevrolet Cir.', 'Bonnevile', 'CA', 90021, 8186623100, 'bigblock454@corvettefans.com', 'Active', 200, 88);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(707, 'Bear', '1287 Forest Rd.', 'Woods', 'CA', 91111, 8185654411, 'tpcomm12@tp.com', 'Active', 500, 68);
+
+1 row created.
+
+SQL> insert into customer
+  2  values(808, 'Moose', '1009 Open Plains Bl.', 'No Hills', 'CA', 90005, 8185656874, 'ieatgrass4lunch@wildlife64.com', 'Inactive', 300, 23);
+
+1 row created.
+
+SQL> 
+SQL> Create table Bill
+  2  (BillID NUMBER(5) CONSTRAINT Bill_BillID_PK PRIMARY KEY,
+  3  BillDate DATE,
+  4  BillAmount NUMBER(5),
+  5  BillStatus VARCHAR2(20) CHECK(BillStatus IN ('Paid','Not Paid','Overdue')),
+  6  BillPaidAmount NUMBER(5,2),
+  7  BillPaidDate DATE,
+  8  CustID NUMBER(5) CONSTRAINT Customer_CID_FK REFERENCES Customer(CustID));
+
+Table created.
+
+SQL> 
+SQL> insert into bill
+  2  values(001, '1-JUL-15', 30, 'Paid', 30, '12-JUL-15', 101);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(002, '1-JUL-15', 40, 'Paid', 40, '10-JUL-15', 202);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(003, '15-JUL-15', 50, 'Paid', 50, '10-JUL-15', 303);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(004, '15-JUL-15', 30, 'Paid', 30, '11-JUL-15', 404);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(005, '15-JUL-15', 30, 'Not Paid', 3, '28-JUN-15', 505);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(006, '1-JUL-15', 50, 'Paid', 50, '20-JUL-15', 606);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(007, '1-JUL-15', 30, 'Paid', 30, '09-JUL-15', 707);
+
+1 row created.
+
+SQL> insert into bill
+  2  values(008, '15-MAY-15', 40, 'Not Paid', 0, '', 808);
+
+1 row created.
+
+SQL> 
+SQL> Create table Survey
+  2  (SurveyID NUMBER(5) CONSTRAINT Survey_SurveyID_PK PRIMARY KEY,
+  3  SurDate Date,
+  4  ChannelID NUMBER(2) CONSTRAINT Channel_ChanID_FK REFERENCES Channels(ChannelID),
+  5  CustID NUMBER(5) CONSTRAINT Customer_CustID_FK REFERENCES Customer(CustID));
+
+Table created.
+
+SQL> 
+SQL> insert into survey
+  2  values(1001, sysdate, 8, 202);
+
+1 row created.
+
+SQL> insert into survey
+  2  values(1002, sysdate, 8, 101);
+
+1 row created.
+
+SQL> insert into survey
+  2  values(1003, sysdate, 2, 404);
+
+1 row created.
+
+SQL> insert into survey
+  2  values(1004, sysdate, 6, 303);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off

@@ -1,0 +1,513 @@
+--TEAM E
+--GROUP PROJECT
+--TASK 3
+--
+set echo on
+set pagesize 50
+set linesize 150
+
+
+DROP TABLE CUSTOMER CASCADE CONSTRAINTS PURGE;
+DROP TABLE BILL CASCADE CONSTRAINTS PURGE;
+DROP TABLE SURVEY CASCADE CONSTRAINTS PURGE;
+DROP TABLE PROGRAMPACKAGE CASCADE CONSTRAINTS PURGE;
+DROP TABLE CHANNELS CASCADE CONSTRAINTS PURGE;
+DROP TABLE GUIDE CASCADE CONSTRAINTS PURGE;
+DROP TABLE PROGRAMS CASCADE CONSTRAINTS PURGE;
+DROP TABLE PACKAGECHANNELS CASCADE CONSTRAINTS PURGE;
+DROP TABLE SUPPLIERS CASCADE CONSTRAINTS PURGE;
+DROP TABLE EMPLOYEE CASCADE CONSTRAINTS PURGE;
+
+
+
+Create table Channels
+(ChannelID NUMBER(5) CONSTRAINT Channel_ChannelID_PK PRIMARY KEY,
+ShortDescription VARCHAR2(50),
+ChannelType VARCHAR2(12));
+
+insert into channels
+values(1, 'BOX OFFICE', 'MOVIE');
+insert into channels
+values(2, 'BIG SCREEN', 'MOVIE');
+insert into channels
+values(3, 'CH3 NEWS', 'NEWS');
+insert into channels
+values(4, 'CH4 NEWS', 'NEWS');
+insert into channels
+values(5, 'LIFE', 'LIFESTYLE');
+insert into channels
+values(6, 'FOOD', 'LIFESTYLE');
+insert into channels
+values(7, 'HISTORY', 'DOCUMENTARY');
+insert into channels
+values(8, 'DOC TV', 'DOCUMENTARY');
+insert into channels
+values(9, 'ALL SPORTS', 'SPORTS');
+insert into channels
+values(10, 'THE GAME', 'SPORTS');
+
+Create table Suppliers
+(SupplierID NUMBER(5) CONSTRAINT Suppliers_SID_PK PRIMARY KEY,
+SupName VARCHAR2(25),
+SupAddress VARCHAR2(50),
+ContPerson VARCHAR2(25),
+ContPhone NUMBER(10),
+ReportID NUMBER(3));
+
+insert into suppliers
+values(1001, 'HBO', '3000 Film Row, Studio City, CA', 'Roger Drones', 3106563312, 6);
+insert into suppliers
+values(1002, 'NBC', '10880 Wilshire Blvd #1200 Los Angeles, CA', 'Jeff King', 3103695231, 1);
+insert into suppliers
+values(1003, 'ABC', 'Los Angeles, CA', 'Jack Caverisi', 3108409966, 2);
+insert into suppliers
+values(1004, 'IFC', '22555 Studio Lane, Studio City, CA', 'Blake Wordly', 6265119977, 3);
+insert into suppliers
+values(1005, 'FOX', '10960 Wilshire Blvd #1200 Los Angeles, CA', 'Janis Carmikel', 3102355233, 4);
+insert into suppliers
+values(1006, 'WARNER', '3701 W Oak St. Los Angeles, CA', 'Simon Philips', 3105326588, 5);
+
+Create table ProgramPackage
+(ProgramPackageID NUMBER(5) CONSTRAINT ProgramPackage_PPID_PK PRIMARY KEY,
+ProgramPackageName VARCHAR2(25),
+Cost NUMBER(5,2));
+
+insert into programpackage
+values('500', 'Movies Galore', 30.00);
+insert into programpackage
+values('400', 'News Globe', 30.00);
+insert into programpackage
+values('300', 'Total Watcher', 40.00);
+insert into programpackage
+values('200', 'Couch Potato', 50.00);
+
+Create table PackageChannels
+(ChannelID NUMBER(5) not null,
+ProgramPackageID NUMBER(5)not null,
+CONSTRAINT PK_ChannelID PRIMARY KEY(ChannelID, ProgramPackageID));
+
+Insert into packagechannels
+values(1, 200);
+Insert into packagechannels
+values(1, 300);
+Insert into packagechannels
+values(1, 400);
+Insert into packagechannels
+values(1, 500);
+Insert into packagechannels
+values(2, 200);
+Insert into packagechannels
+values(2, 300);
+Insert into packagechannels
+values(2, 500);
+Insert into packagechannels
+values(3, 200);
+Insert into packagechannels
+values(3, 300);
+Insert into packagechannels
+values(3, 400);
+Insert into packagechannels
+values(3, 500);
+Insert into packagechannels
+values(4, 200);
+Insert into packagechannels
+values(4, 400);
+Insert into packagechannels
+values(5, 200);
+Insert into packagechannels
+values(6, 200);
+Insert into packagechannels
+values(6, 300);
+Insert into packagechannels
+values(6, 400);
+Insert into packagechannels
+values(6, 500);
+Insert into packagechannels
+values(7, 200);
+Insert into packagechannels
+values(7, 300);
+Insert into packagechannels
+values(7, 400);
+Insert into packagechannels
+values(7, 500);
+Insert into packagechannels
+values(8, 400);
+Insert into packagechannels
+values(8, 200);
+Insert into packagechannels
+values(9, 200);
+Insert into packagechannels
+values(9, 300);
+Insert into packagechannels
+values(9, 400);
+Insert into packagechannels
+values(9, 500);
+Insert into packagechannels
+values(10, 200);
+Insert into packagechannels
+values(10, 300);
+
+Create table Employee
+(EmployeeID NUMBER(3) CONSTRAINT Employee_EID_PK PRIMARY KEY,
+EmployeeName VARCHAR2(25));
+
+insert into employee
+values(11, 'Eli Manning');
+insert into employee
+values(68, 'Jamir Jagr');
+insert into employee
+values(88, 'Eric Lindros');
+insert into employee
+values(23, 'Michael Jordan');
+
+Create table Programs
+(ProgramID NUMBER(5) CONSTRAINT Programs_PID_PK PRIMARY KEY,
+ProgramName VARCHAR2(25),
+Length NUMBER(6),
+Description VARCHAR2(100),
+Rating VARCHAR2(5),
+SupplierID NUMBER(5) CONSTRAINT Suppliers_SupID_FK REFERENCES Suppliers(SupplierID));
+
+insert into programs
+values(10100, 'Sale of the Year', 24, 'Game Show', 'G', 1006);
+insert into programs
+values(10101, 'Opera by the Nile', 240, 'Luciano Pavorotti sings opera on the Nile', 'G', 1006);
+insert into programs
+values(10102, 'Fly Killers are Back', 175, 'Flies attack the city once again; the Bygone Brigade are back', 'MA', 1005);
+insert into programs
+values(10103, 'NBC Tonight', 360, 'News from around the world', 'PG', 1002);
+insert into programs
+values(10104, 'The Cooking Show', 120, 'The recipes of a lifetime', 'G', 1003);
+insert into programs
+values(10105, 'Angel Fire', 120, 'Angel is back on the streets', 'R', 1005);
+insert into programs
+values(10106, 'Lawn Bowl Championships', 400, 'Live from Canberra', 'G', 1002);
+insert into programs
+values(10107, 'Mud Wrestling', 120, 'The mud pits come alive for the muddy challenge', 'MA', 1002);
+insert into programs
+values(10108, 'Cafe News Show', 360, 'Jump start your day the right way!', 'PG', 1003);
+insert into programs
+values(10109, 'War Crimes', 60, 'Being a P.O.W. in WW2', 'PG', 1006);
+insert into programs
+values(10110, 'DIY Home Edition', 30, 'Stan shows you how to "Do It Yourself"', 'G', 1002);
+insert into programs
+values(10111, 'Starry Wars the Trilogy', 120, 'Science Fiction epic about the generation of a brave new world', 'MA', 1006);
+insert into programs
+values(10112, 'Gomer Piles the Hero', 80, 'Comedy showing the advantages of being an army sergeant', 'PG', 1003);
+insert into programs
+values(10113, 'Twinkle Toes in Paris', 90, 'Romantic Drama about a Scottish Ballet Dancer making his fortune', 'MA', 1005);
+insert into programs
+values(10114, 'Segall in New York', 110, 'Action about a terrorist attack on a New York cemetery', 'R', 1006);
+insert into programs
+values(10115, 'Fantasia', 118, 'Disney Favorite', 'G', 1002);
+insert into programs
+values(10116, 'Dances with Fairies', 96, 'New age movie showing the interscation of humans in the afterlife', 'PG', 1003);
+insert into programs
+values(10117, 'Speed 6: The Last', 105, 'The ship is taken over by hostile aliens; Minnie Driver fights back before the ship explodes', 'R', 1006);
+insert into programs
+values(10118, 'Pretty Women', 83, 'The long awaited sequel to the american classic film', 'R', 1005);
+insert into programs
+values(10119, 'Seinfeld', 26, 'Show about nothing', 'PG', 1002);
+insert into programs
+values(10120, 'PCU', 93, 'College bums throw a party to keep their house', 'R', 1006);
+insert into programs
+values(10121, 'Game of Toads', 58, 'Toads fight for the iron lily pad', 'G', 1004);
+insert into programs
+values(10122, 'Pretty Little Friars', 57, 'Devout young church girls fall into dramatic scenarios while attending Friar school', 'PG', 1003);
+insert into programs
+values(10123, 'Misters...es', 60, 'Spin-off of the drama show "Mistresses" where men create their own misfortunes', 'MA', 1001);
+insert into programs
+values(10124, 'Germinator', 121, 'Indie-film; George is deathly afraid of the germs he has to face in order to survive', 'MA', 1004);
+insert into programs
+values(10125, 'Mighty Mouse', 14, 'Cartoon: Super hero mouse saves the day', 'G', 1006);
+insert into programs
+values(10126, 'Framily Guys', 30, 'Cartoon: Friends with their own families enlist each other to help with their mistakes', 'PG', 1005);
+insert into programs
+values(10127, 'Baseball Tonight', 60, 'Recap of the days baseball games', 'G', 1002);
+
+Create table Guide
+(GuideID NUMBER(5) CONSTRAINT Guide_GuideID_PK PRIMARY KEY,
+ChannelID NUMBER(2) CONSTRAINT Channel_CHID_FK REFERENCES Channels(ChannelID),
+ShowTime DATE,
+ShowDate DATE,
+ProgramID NUMBER(5) CONSTRAINT Program_PID_FK REFERENCES Programs(ProgramID));
+
+insert into guide
+values(1, 1, to_date('01:00', 'HH24:MI'), '24-Aug-15', 10102);
+insert into guide
+values(2, 1, to_date('01:00', 'HH24:MI'), '24-Aug-15', 10102);
+insert into guide
+values(3, 1, to_date('01:00', 'HH24:MI'), '24-Aug-15', 10102);
+insert into guide
+values(4, 1, to_date('01:00', 'HH24:MI'), '24-Aug-15', 10102);
+insert into guide
+values(5, 2, to_date('03:40', 'HH24:MI'), '24-Aug-15', 10105);
+insert into guide
+values(6, 2, to_date('03:40', 'HH24:MI'), '24-Aug-15', 10105);
+insert into guide
+values(7, 2, to_date('03:40', 'HH24:MI'), '24-Aug-15', 10105);
+insert into guide
+values(8, 3, to_date('05:30', 'HH24:MI'), '24-Aug-15', 10103);
+insert into guide
+values(9, 3, to_date('05:30', 'HH24:MI'), '24-Aug-15', 10103);
+insert into guide
+values(10, 3, to_date('05:30', 'HH24:MI'), '24-Aug-15', 10103);
+insert into guide
+values(11, 3, to_date('05:30', 'HH24:MI'), '24-Aug-15', 10103);
+insert into guide
+values(12, 4, to_date('16:30', 'HH24:MI'), '24-Aug-15', 10108);
+insert into guide
+values(13, 4, to_date('16:30', 'HH24:MI'), '24-Aug-15', 10108);
+insert into guide
+values(14, 5, to_date('19:00', 'HH24:MI'), '24-Aug-15', 10110);
+insert into guide
+values(15, 6, to_date('12:30', 'HH24:MI'), '24-Aug-15', 10104);
+insert into guide
+values(16, 6, to_date('12:30', 'HH24:MI'), '24-Aug-15', 10104);
+insert into guide
+values(60, 6, to_date('12:30', 'HH24:MI'), '24-Aug-15', 10104);
+insert into guide
+values(17, 6, to_date('12:30', 'HH24:MI'), '24-Aug-15', 10104);
+insert into guide
+values(18, 7, to_date('09:00', 'HH24:MI'), '24-Aug-15', 10109);
+insert into guide
+values(19, 7, to_date('09:00', 'HH24:MI'), '24-Aug-15', 10109);
+insert into guide
+values(20, 7, to_date('09:00', 'HH24:MI'), '24-Aug-15', 10109);
+insert into guide
+values(21, 7, to_date('09:00', 'HH24:MI'), '24-Aug-15', 10109);
+insert into guide
+values(22, 8, to_date('17:00', 'HH24:MI'), '24-Aug-15', 10101);
+insert into guide
+values(23, 8, to_date('17:00', 'HH24:MI'), '24-Aug-15', 10101);
+insert into guide
+values(24, 9, to_date('14:00', 'HH24:MI'), '24-Aug-15', 10106);
+insert into guide
+values(25, 9, to_date('14:00', 'HH24:MI'), '24-Aug-15', 10106);
+insert into guide
+values(26, 9, to_date('14:00', 'HH24:MI'), '24-Aug-15', 10106);
+insert into guide
+values(27, 9, to_date('14:00', 'HH24:MI'), '24-Aug-15', 10106);
+insert into guide
+values(28, 10, to_date('21:00', 'HH24:MI'), '24-Aug-15', 10107);
+insert into guide
+values(29, 10, to_date('21:00', 'HH24:MI'), '24-Aug-15', 10107);
+insert into guide
+values(30, 1, to_date('01:00', 'HH24:MI'), '25-Aug-15', 10102);
+insert into guide
+values(31, 1, to_date('01:00', 'HH24:MI'), '25-Aug-15', 10102);
+insert into guide
+values(32, 1, to_date('01:00', 'HH24:MI'), '25-Aug-15', 10102);
+insert into guide
+values(33, 1, to_date('01:00', 'HH24:MI'), '25-Aug-15', 10102);
+insert into guide
+values(34, 2, to_date('03:40', 'HH24:MI'), '25-Aug-15', 10105);
+insert into guide
+values(35, 2, to_date('03:40', 'HH24:MI'), '25-Aug-15', 10105);
+insert into guide
+values(36, 2, to_date('03:40', 'HH24:MI'), '25-Aug-15', 10105);
+insert into guide
+values(37, 3, to_date('05:30', 'HH24:MI'), '25-Aug-15', 10103);
+insert into guide
+values(38, 3, to_date('05:30', 'HH24:MI'), '25-Aug-15', 10103);
+insert into guide
+values(39, 3, to_date('05:30', 'HH24:MI'), '25-Aug-15', 10103);
+insert into guide
+values(40, 3, to_date('05:30', 'HH24:MI'), '25-Aug-15', 10103);
+insert into guide
+values(41, 4, to_date('16:30', 'HH24:MI'), '25-Aug-15', 10108);
+insert into guide
+values(42, 4, to_date('16:30', 'HH24:MI'), '25-Aug-15', 10108);
+insert into guide
+values(43, 5, to_date('19:00', 'HH24:MI'), '25-Aug-15', 10110);
+insert into guide
+values(44, 6, to_date('12:30', 'HH24:MI'), '25-Aug-15', 10104);
+insert into guide
+values(45, 6, to_date('12:30', 'HH24:MI'), '25-Aug-15', 10104);
+insert into guide
+values(46, 6, to_date('12:30', 'HH24:MI'), '25-Aug-15', 10104);
+insert into guide
+values(47, 6, to_date('12:30', 'HH24:MI'), '25-Aug-15', 10104);
+insert into guide
+values(48, 7, to_date('09:00', 'HH24:MI'), '25-Aug-15', 10109);
+insert into guide
+values(49, 7, to_date('09:00', 'HH24:MI'), '25-Aug-15', 10109);
+insert into guide
+values(50, 7, to_date('09:00', 'HH24:MI'), '25-Aug-15', 10109);
+insert into guide
+values(51, 7, to_date('09:00', 'HH24:MI'), '25-Aug-15', 10109);
+insert into guide
+values(52, 8, to_date('17:00', 'HH24:MI'), '25-Aug-15', 10101);
+insert into guide
+values(53, 8, to_date('17:00', 'HH24:MI'), '25-Aug-15', 10101);
+insert into guide
+values(54, 9, to_date('14:00', 'HH24:MI'), '25-Aug-15', 10106);
+insert into guide
+values(55, 9, to_date('14:00', 'HH24:MI'), '25-Aug-15', 10106);
+insert into guide
+values(56, 9, to_date('14:00', 'HH24:MI'), '25-Aug-15', 10106);
+insert into guide
+values(57, 9, to_date('14:00', 'HH24:MI'), '25-Aug-15', 10106);
+insert into guide
+values(58, 10, to_date('21:00', 'HH24:MI'), '25-Aug-15', 10107);
+insert into guide
+values(59, 10, to_date('21:00', 'HH24:MI'), '25-Aug-15', 10107);
+
+--select showtime from guide:
+--select to_char(ShowTime, 'HH:MI') from Guide;
+
+Create table Customer
+(CustId NUMBER(5) CONSTRAINT Customer_CustId_PK PRIMARY KEY,
+CustName VARCHAR2(25),
+CustStreet VARCHAR2(30),
+CustCity VARCHAR2(30),
+CustState CHAR(2),
+CustZip NUMBER(9),
+CustPhone NUMBER(10),
+CustEmail VARCHAR2(30),
+CustStatus VARCHAR2(8) CHECK(CustStatus IN('Active', 'Inactive')),
+ProgramPackageID NUMBER(5) CONSTRAINT ProgramPackage_PPID_FK REFERENCES ProgramPackage(ProgramPackageID),
+EmployeeID NUMBER(3) CONSTRAINT Employee_EmpID_FK REFERENCES Employee(EmployeeID));
+
+insert into customer
+values(101, 'Harborough', '1234 Venice Bl.', 'Los Angeles', 'CA', 90066, 3105889887, 'mememe@myself.com', 'Active', 500, 23);
+insert into customer
+values(202, 'Scittler', '5678 Dying Rd.', 'On a Laptop', 'CA', 90056, 3104447777, 'omgomg@lol.com', 'Active', 300, 88);
+insert into customer
+values(303, 'Slowwwwwww', '9999 Again St.', 'Tired Town', 'CA', 90099, 3101111111, 'roughday@onlyme.com', 'Active', 200, 68);
+insert into customer
+values(404, 'Mr. Mask', '888 Infinite St.', 'Universe', 'CA', 98888, 3108888888, 'spaceballs11@galaxy900.com', 'Active', 400, 11);
+insert into customer
+values(505, 'Galant', '456 Mitsuwa Rd.', 'Mitstitch', 'CA', 91001, 8185652331, '4doorsedan@mitsubishi.com', 'Active', 400, 23);
+insert into customer
+values(606, 'Block', '6269 Chevrolet Cir.', 'Bonnevile', 'CA', 90021, 8186623100, 'bigblock454@corvettefans.com', 'Active', 200, 88);
+insert into customer
+values(707, 'Bear', '1287 Forest Rd.', 'Woods', 'CA', 91111, 8185654411, 'tpcomm12@tp.com', 'Active', 500, 68);
+insert into customer
+values(808, 'Moose', '1009 Open Plains Bl.', 'No Hills', 'CA', 90005, 8185656874, 'ieatgrass4lunch@wildlife64.com', 'Active', 300, 23);
+insert into customer
+values(909, 'John Snow', '500 HBO Place', 'Winterfell', 'CA', 90522, 8185657845, 'Iknownothing@gameofthrones.com', 'Active', 500, 11);
+insert into customer
+values(110, 'Dragonborn Knight', '1 Tamriel Way', 'Skyrim', 'CA', 90010, 3106268752, 'level81allday@bethesda.com', 'Active', 400, 68);
+insert into customer
+values(111, 'Max payne', '5 Sequels Rd.', 'Dual Wield', 'CA', 90233, 8185651156, 'ikill4fun@novacay.com', 'Active', 300, 23);
+insert into customer
+values(112, 'Bill Maher', '1134 Upside Down St.', 'Malibu', 'CA', 90026, 8186261521, 'IshouldbePrez2016@24/7.com', 'Active', 200, 88);
+
+Create table Bill
+(BillID NUMBER(5) CONSTRAINT Bill_BillID_PK PRIMARY KEY,
+BillDate DATE,
+BillAmount NUMBER(5),
+BillStatus VARCHAR2(20) CHECK(BillStatus IN ('Paid','Not Paid','Overdue')),
+BillPaidAmount NUMBER(5,2),
+BillPaidDate DATE,
+CustID NUMBER(5) CONSTRAINT Customer_CID_FK REFERENCES Customer(CustID));
+
+insert into bill
+values(001, '1-JUL-15', 30, 'Paid', 30, '12-JUL-15', 101);
+insert into bill
+values(002, '1-JUL-15', 40, 'Paid', 40, '10-JUL-15', 202);
+insert into bill
+values(003, '15-JUL-15', 50, 'Paid', 50, '10-JUL-15', 303);
+insert into bill
+values(004, '15-JUL-15', 30, 'Paid', 30, '11-JUL-15', 404);
+insert into bill
+values(005, '15-JUL-15', 30, 'Not Paid', 0, '', 505);
+insert into bill
+values(006, '1-JUL-15', 50, 'Paid', 50, '20-JUL-15', 606);
+insert into bill
+values(007, '1-JUL-15', 30, 'Paid', 30, '09-JUL-15', 707);
+insert into bill
+values(008, '15-MAY-15', 40, 'Not Paid', 0, '', 808);
+insert into bill
+values(009, '15-JUL-15', 30, 'Paid', 30, '21-JUL-15', 909);
+insert into bill
+values(010, '15-JUL-15', 30, 'Paid', 30, '16-JUL-15', 110);
+insert into bill
+values(011, '1-JUL-15', 40, 'Paid', 40, '10-JUL-15', 111);
+insert into bill
+values(012, '15-MAY-15', 50, 'Not Paid', 0, '', 112);
+
+
+Create table Survey
+(SurveyID NUMBER(5) CONSTRAINT Survey_SurveyID_PK PRIMARY KEY,
+SurDate Date,
+ChannelID NUMBER(2) CONSTRAINT Channel_ChanID_FK REFERENCES Channels(ChannelID),
+CustID NUMBER(5) CONSTRAINT Customer_CustID_FK REFERENCES Customer(CustID));
+
+insert into survey
+values(1001, '23-JUL-15', 8, 202);
+insert into survey
+values(1002, '23-JUL-15', 2, 101);
+insert into survey
+values(1003, '23-JUL-15', 3, 404);
+insert into survey
+values(1004, '23-JUL-15', 10, 303);
+insert into survey
+values(1005, '23-JUL-15', 3, 505);
+insert into survey
+values(1006, '23-JUL-15', 9, 606);
+insert into survey
+values(1007, '23-JUL-15', 2, 707);
+insert into survey
+values(1008, '23-JUL-15', 8, 808);
+insert into survey
+values(1009, '23-JUL-15', 1, 909);
+insert into survey
+values(1010, '23-JUL-15', 4, 110);
+insert into survey
+values(1011, '23-JUL-15', 1, 111);
+insert into survey
+values(1012, '23-JUL-15', 7, 112);
+
+--display bill and customer tables
+
+select * from bill;
+select custid, custname, custstatus, programpackageid, employeeid from customer;
+
+--update the customer status column in customer 
+
+update customer 
+set custstatus = 'Inactive'
+where custid IN
+	(select custid
+	from bill
+	where billstatus IN ('Not Paid'));
+
+select * from bill;
+select custid, custname, custstatus, programpackageid, employeeid from customer;
+
+
+--report #1
+select distinct channelid, showdate, to_char(ShowTime, 'HH:MI'), programname, length, supplierid
+from programs join guide
+on guide.programid = programs.programid
+join channels
+on channels.channelid = guide.channelid
+join packagechannels 
+on packagechannels.channelid = channels.channelid
+join programpackage
+on programpackage.programpackageid = packagechannels.programpackageid
+where programpackageid = 300
+order by showdate;
+
+--report #2
+select  showtime, channelid, channeltype, programname, description, rating
+from guide join programs
+on guide.programid = programs.programid join channels
+on channels.channelid = guide.channelid;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
